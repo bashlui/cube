@@ -8,23 +8,24 @@ class Screen
     SDL_Renderer* renderer;
     std::vector<SDL_FPoint> points;
 
-    Screen()
-    {
-        SDL_Init(SDL_INIT_VIDEO);
-        SDL_CreateWindowAndRenderer(
-                640*2,480*2,0,&window,&renderer);
-        SDL_RendererSetScale(renderer,2,2);
-    }
+    public:
+        Screen()
+        {
+            SDL_Init(SDL_INIT_VIDEO);
+            SDL_CreateWindowAndRenderer(
+                    640*2,480*2,0,&window,&renderer);
+            SDL_RenderSetScale(renderer,2,2);
+        }
 
-    void pixel(float x, float, y)
+    void pixel(float x, float y)
     {
-        points.emplace_back(x,y);
+        points.push_back(SDL_FPoint{x, y});
     }   // If you can't use emplace, use push_back instead
 
     void show()
     {
         SDL_SetRenderDrawColor(renderer,0,0,0,255);
-        SDL_RendererClear(renderer);
+        SDL_RenderClear(renderer);
 
         SDL_SetRenderDrawColor(renderer,255,255,255,255);
         for(auto& point: points)
