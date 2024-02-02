@@ -1,5 +1,7 @@
 #include "screen.h"
 #include <numeric>
+#include <iostream>
+using namespace std;
 
 struct vec3
 {
@@ -16,16 +18,16 @@ void rotate(vec3& point, float x = 1, float y = 1, float z = 1)
     float rad = 0;
 
     rad = x;
-    point.y = std::cos(rad) * point.y - std::sin(rad) * point.z;
-    point.z = std::sin(rad) * point.y + std::cos(rad) * point.z;
+    point.y = cos(rad) * point.y - sin(rad) * point.z;
+    point.z = sin(rad) * point.y + cos(rad) * point.z;
 
     rad = y;
-    point.x = std::cos(rad) * point.x + std::sin(rad) * point.z;
-    point.z = -std::sin(rad) * point.x + std::cos(rad) * point.z;
+    point.x = cos(rad) * point.x + sin(rad) * point.z;
+    point.z = -sin(rad) * point.x + cos(rad) * point.z;
 
     rad = z;
-    point.x = std::cos(rad) * point.x - std::sin(rad) * point.y;
-    point.y = std::sin(rad) * point.x + std::cos(rad) * point.y;
+    point.x = cos(rad) * point.x - sin(rad) * point.y;
+    point.y = sin(rad) * point.x + cos(rad) * point.y;
 }
 
 
@@ -34,14 +36,14 @@ void line(Screen& screen, float x1, float y1, float x2, float y2)
     float dx = x2 - x1;
     float dy = y2 - y1;
 
-    float length = std::sqrt(dx * dx + dy * dy);
-    float angle = std::atan2(dy, dx);
+    float length = sqrt(dx * dx + dy * dy);
+    float angle = atan2(dy, dx);
 
     for(float i = 0; i < length; i++)
     {
             screen.pixel(
-                    x1 + std::cos(angle) * i,
-                    y1 + std::sin(angle) * i
+                    x1 + cos(angle) * i,
+                    y1 + sin(angle) * i
                     );
     }
 }
@@ -50,7 +52,7 @@ int main()
 {
     Screen screen;
 
-    std::vector<vec3> points
+    vector<vec3> points
     {
             {100, 100, 100},
             {200, 100, 100},
@@ -63,7 +65,7 @@ int main()
             {100, 200, 200}
     };
 
-    std::vector<connection> connections{
+    vector<connection> connections{
             {0, 4},
             {1, 5},
             {2, 6},
