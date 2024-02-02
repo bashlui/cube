@@ -1,4 +1,22 @@
 #include "screen.h"
+#include <numeric>
+
+void line(Screen& screen, float x1, float y1, float x2, float y2)
+{
+    float dx = x2 - x1;
+    float dy = y2 - y1;
+
+    float length = std::sqrt(dx * dx + dy * dy);
+    float angle = std::atan2(dy, dx);
+
+    for(float i = 0; i < length; i++)
+    {
+            screen.pixel(
+                    x1 + std::cos(angle) * i,
+                    y1 + std::sin(angle) * i
+                    );
+    }
+}
 
 int main()
 {
@@ -8,6 +26,11 @@ int main()
     {
         screen.pixel(rand()%640, rand()%480);
     }
+
+    line(screen, 100, 100, 200, 100);  // Top line
+    line(screen, 200, 100, 200, 200);  // Right line
+    line(screen, 200, 200, 100, 200);  // Bottom line
+    line(screen, 100, 200, 100, 100);  // Left line
 
     while(true)
     {
